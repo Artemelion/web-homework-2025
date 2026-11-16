@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регулярные выражения — форма</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form id="profileForm" novalidate>
+        <div class="field">
+            <label for="firstName">Имя</label>
+            <input type="text" id="firstName" placeholder="Влад">
+            <p class="error"></p>
+        </div>
+
+        <div class="field">
+            <label for="lastName">Фамилия</label>
+            <input type="text" id="lastName" placeholder="Отченко">
+            <p class="error"></p>
+        </div>
+
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="example@gmail.com">
+            <p class="error"></p>
+        </div>
+
+        <div class="field">
+            <label for="phone">Номер телефона</label>
+            <div class="phone">
+                <span>+38</span>
+                <input type="tel" id="phone" placeholder="066 123 45 67">
+            </div>
+            <p class="error"></p>
+        </div>
+
+        <div class="field">
+            <label for="address">Домашний адрес</label>
+            <input type="text" id="address" placeholder="г. Киев, ул. Киевская, 1">
+            <p class="error"></p>
+        </div>
+
+        <div class="field">
+            <label for="birthDate">Дата рождения</label>
+            <input type="text" id="birthDate" placeholder="18/05/1997">
+            <p class="error"></p>
+        </div>
+
+        <button type="submit">Сохранить</button>
+        <p class="success" id="success"></p>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
