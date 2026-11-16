@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея — jQuery UI</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 16px;
+            background: #f7f5f2;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            text-align: center;
+        }
+
+        .viewer {
+            width: 420px;
+            max-width: 100%;
+            height: 420px;
+            margin: 0 auto 26px;
+        }
+
+        #mainImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+        }
+
+        .thumbs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .thumbs img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .thumbs img.active {
+            border-color: #fff;
+            box-shadow: 0 0 0 2px #e9a23b, 0 6px 16px rgba(0, 0, 0, .35);
+        }
+
+        .thumbs img.hovered {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="viewer">
+        <img id="mainImage" src="https://picsum.photos/id/1015/840/840" alt="Большое изображение">
+    </div>
+
+    <div class="thumbs">
+        <img src="https://picsum.photos/id/1015/240/240" data-big="https://picsum.photos/id/1015/840/840" alt="Река в горах" class="active">
+        <img src="https://picsum.photos/id/1080/240/240" data-big="https://picsum.photos/id/1080/840/840" alt="Клубника">
+        <img src="https://picsum.photos/id/152/240/240" data-big="https://picsum.photos/id/152/840/840" alt="Цветы">
+        <img src="https://picsum.photos/id/1043/240/240" data-big="https://picsum.photos/id/1043/840/840" alt="Деревья">
+        <img src="https://picsum.photos/id/1039/240/240" data-big="https://picsum.photos/id/1039/840/840" alt="Водопад">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            const $main = $("#mainImage");
+
+            $(".thumbs img").each(function () {
+                new Image().src = $(this).data("big");
+            });
+
+            // эффект при наведении
+            $(".thumbs img")
+                .on("mouseenter", function () {
+                    $(this).stop(true, true)
+                        .addClass("hovered", 200)
+                        .effect("bounce", { times: 1, distance: 8 }, 300);
+                })
+                .on("mouseleave", function () {
+                    $(this).removeClass("hovered", 200);
+                });
+
+            // смена большой картинки
+            $(".thumbs img").on("click", function () {
+                const $thumb = $(this);
+                const bigSrc = $thumb.data("big");
+                if ($main.attr("src") === bigSrc || $main.is(":animated")) return;
+
+                $(".thumbs img").removeClass("active");
+                $thumb.addClass("active");
+
+                $main.hide("clip", { direction: "horizontal" }, 300, function () {
+                    $main.attr({ src: bigSrc, alt: $thumb.attr("alt") })
+                        .show("clip", { direction: "horizontal" }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
