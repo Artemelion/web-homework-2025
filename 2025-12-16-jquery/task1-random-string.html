@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random String Generator</title>
+    <style>
+        body {
+            max-width: 560px;
+            margin: 40px auto;
+            padding: 24px 28px;
+            background: #faf0e6;
+            font-family: Verdana, sans-serif;
+            color: #222;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        #length {
+            width: 60px;
+            padding: 4px 6px;
+        }
+
+        .chars label {
+            display: block;
+            margin: 4px 0 4px 14px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 190px;
+            margin-top: 16px;
+            padding: 6px;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background: #e3e3e3;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #d6d6d6;
+        }
+
+        hr {
+            margin: 22px 0;
+            border: none;
+            border-top: 1px solid #aaa;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #result {
+            width: 320px;
+            padding: 4px 8px;
+            font: 15px monospace;
+        }
+
+        .error {
+            color: #d33;
+            min-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Random String Generator</h2>
+
+    <p>String should be <input type="number" id="length" value="10" min="1" max="100"> characters long.</p>
+
+    <p>Which characters are allowed to occur in the strings?</p>
+    <div class="chars">
+        <label><input type="checkbox" value="0123456789" checked> Numeric digits (0-9)</label>
+        <label><input type="checkbox" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ"> Uppercase letters (A-Z)</label>
+        <label><input type="checkbox" value="abcdefghijklmnopqrstuvwxyz" checked> Lowercase letters (a-z)</label>
+    </div>
+
+    <button id="generate">Generate</button>
+    <p class="error" id="error"></p>
+
+    <hr>
+
+    <label class="result">Result: <input type="text" id="result" readonly></label>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function () {
+            // генерация строки
+            $("#generate").on("click", function () {
+                const length = parseInt($("#length").val());
+
+                let alphabet = "";
+                $(".chars input:checked").each(function () {
+                    alphabet += $(this).val();
+                });
+
+                if (!length || length < 1 || length > 100) {
+                    $("#error").text("Длина строки — от 1 до 100 символов");
+                    return;
+                }
+                if (alphabet === "") {
+                    $("#error").text("Отметьте хотя бы один набор символов");
+                    return;
+                }
+                $("#error").text("");
+
+                let result = "";
+                for (let i = 0; i < length; i++) {
+                    result += alphabet[Math.floor(Math.random() * alphabet.length)];
+                }
+
+                $("#result").val(result).hide().fadeIn(200);
+            });
+
+            $("#result").on("focus", function () {
+                $(this).select();
+            });
+        });
+    </script>
+</body>
+
+</html>

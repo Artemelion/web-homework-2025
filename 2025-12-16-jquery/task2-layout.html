@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 блока — jQuery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            user-select: none;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .left {
+            width: 25%;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .right {
+            flex: 1;
+        }
+
+        .top,
+        .bottom {
+            min-height: 100px;
+            overflow: hidden;
+        }
+
+        .top {
+            height: 50%;
+        }
+
+        .bottom {
+            flex: 1;
+        }
+
+        .left .top { background: #b5dde9; }
+        .left .bottom { background: #ffbdc8; }
+        .right .top { background: #29b9b2; height: 75%; }
+        .right .bottom { background: #ffaa85; }
+
+        .slider {
+            flex-shrink: 0;
+            height: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #d8d8d8;
+            cursor: row-resize;
+        }
+
+        .slider::before {
+            content: "";
+            width: 22px;
+            height: 5px;
+            border-top: 2px solid #222;
+            border-bottom: 2px solid #222;
+        }
+
+        .divider {
+            position: relative;
+            width: 10px;
+            flex-shrink: 0;
+            background: #d8d8d8;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 10px;
+            height: 26px;
+            transform: translateY(-50%);
+            border: none;
+            padding: 0;
+            background: #000;
+            clip-path: polygon(100% 0, 0 50%, 100% 100%);
+            cursor: pointer;
+        }
+
+        .arrow.collapsed {
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        body.dragging,
+        body.dragging * {
+            cursor: row-resize !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="column left" id="left">
+        <div class="top"></div>
+        <div class="slider"></div>
+        <div class="bottom"></div>
+    </div>
+
+    <div class="divider">
+        <button class="arrow" id="arrow" title="Свернуть / развернуть"></button>
+    </div>
+
+    <div class="column right">
+        <div class="top"></div>
+        <div class="slider"></div>
+        <div class="bottom"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function () {
+            const MIN_HEIGHT = 100;
+            const $left = $("#left");
+            let leftWidth = $left.width();
+
+            // сворачиваем / разворачиваем левый блок
+            $("#arrow").on("click", function () {
+                const $arrow = $(this);
+
+                if ($arrow.hasClass("collapsed")) {
+                    $left.animate({ width: leftWidth }, 300, function () {
+                        $left.css("width", "25%");
+                    });
+                } else {
+                    leftWidth = $left.width();
+                    $left.animate({ width: 0 }, 300);
+                }
+
+                $arrow.toggleClass("collapsed");
+            });
+
+            let $activeColumn = null;
+
+            // ползунки меняют высоту блоков
+            $(".slider").on("mousedown", function (e) {
+                e.preventDefault();
+                $activeColumn = $(this).closest(".column");
+                $("body").addClass("dragging");
+            });
+
+            $(document).on("mousemove", function (e) {
+                if (!$activeColumn) return;
+
+                const columnTop = $activeColumn.offset().top;
+                const columnHeight = $activeColumn.height();
+                const sliderHeight = $activeColumn.find(".slider").outerHeight();
+
+                let topHeight = e.pageY - columnTop - sliderHeight / 2;
+                topHeight = Math.max(MIN_HEIGHT, Math.min(topHeight, columnHeight - sliderHeight - MIN_HEIGHT));
+
+                $activeColumn.find(".top").css("height", topHeight);
+            });
+
+            $(document).on("mouseup", function () {
+                $activeColumn = null;
+                $("body").removeClass("dragging");
+            });
+        });
+    </script>
+</body>
+
+</html>
