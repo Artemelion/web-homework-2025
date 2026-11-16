@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+    background: linear-gradient(160deg, #dfe9f3, #f6f1ea);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #1d2433;
+}
+
+.app {
+    width: 100%;
+    max-width: 420px;
+}
+
+form {
+    display: flex;
+    gap: 8px;
+}
+
+input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid #c9d2de;
+    border-radius: 10px;
+    font: inherit;
+}
+
+button {
+    padding: 0 18px;
+    border: none;
+    border-radius: 10px;
+    background: #2f6fed;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1f58c9;
+}
+
+.status {
+    min-height: 22px;
+    color: #667;
+}
+
+.card {
+    padding: 26px;
+    border-radius: 20px;
+    background: linear-gradient(160deg, #4f8ff7, #7bc4ff);
+    color: #fff;
+    box-shadow: 0 14px 34px rgba(47, 111, 237, .35);
+    animation: show .4s ease;
+}
+
+.card.night {
+    background: linear-gradient(160deg, #1d2a4d, #3e4f86);
+    box-shadow: 0 14px 34px rgba(29, 42, 77, .4);
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 4px 0 0;
+    opacity: .85;
+    text-transform: capitalize;
+}
+
+.now {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.icon {
+    font-size: 64px;
+}
+
+.temp {
+    font-size: 72px;
+    font-weight: 300;
+}
+
+.description {
+    margin: 0 0 18px;
+    font-size: 18px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 0;
+    list-style: none;
+}
+
+.details li {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .18);
+    font-size: 13px;
+}
+
+.details b {
+    display: block;
+    font-size: 17px;
+}
+
+.sun {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .18);
+    text-align: center;
+}
+
+.sun div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sun span {
+    font-size: 26px;
+}
+
+.sun small {
+    opacity: .85;
+}
+
+.sun b {
+    font-size: 18px;
+}
+
+.day-length b {
+    font-size: 15px;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода — сетевые запросы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="app">
+        <form id="searchForm">
+            <input type="text" id="city" placeholder="Введите город, например Одесса" required autocomplete="off">
+            <button type="submit">Показать</button>
+        </form>
+
+        <p class="status" id="status"></p>
+
+        <section class="card" id="card" hidden>
+            <header>
+                <h1 id="place"></h1>
+                <p id="date"></p>
+            </header>
+
+            <div class="now">
+                <span class="icon" id="icon"></span>
+                <span class="temp" id="temp"></span>
+            </div>
+            <p class="description" id="description"></p>
+
+            <ul class="details">
+                <li>Ощущается как <b id="feels"></b></li>
+                <li>Мин / макс <b id="minmax"></b></li>
+                <li>Влажность <b id="humidity"></b></li>
+                <li>Ветер <b id="wind"></b></li>
+            </ul>
+
+            <div class="sun">
+                <div>
+                    <span>🌅</span>
+                    <small>Рассвет</small>
+                    <b id="sunrise"></b>
+                </div>
+                <div class="day-length">
+                    <small>Световой день</small>
+                    <b id="dayLength"></b>
+                </div>
+                <div>
+                    <span>🌇</span>
+                    <small>Закат</small>
+                    <b id="sunset"></b>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
