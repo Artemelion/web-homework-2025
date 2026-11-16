@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train tickets booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form class="panel" id="searchForm">
+        <label>Direction:
+            <select id="direction"></select>
+        </label>
+        <label>Date:
+            <input type="date" id="date" required>
+        </label>
+        <button type="submit">Search</button>
+    </form>
+
+    <section class="panel" id="seatsPanel" hidden>
+        <p class="train-info" id="trainInfo"></p>
+        <hr>
+        <div class="wagon" id="seats"></div>
+        <div class="legend">
+            <span><i class="free"></i> free</span>
+            <span><i class="busy"></i> booked</span>
+        </div>
+        <div class="total">
+            Total price: <b id="totalPrice">0$</b>
+            <button type="button" id="bookButton" disabled>Book</button>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>My tickets:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Direction</th>
+                    <th>Date</th>
+                    <th>Seat</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tickets"></tbody>
+        </table>
+        <p class="empty" id="noTickets">No tickets yet</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 12px;
+    font-family: Verdana, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.panel {
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    background: #faf0e6;
+}
+
+#searchForm {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+select,
+input[type=date] {
+    margin-left: 6px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font: inherit;
+}
+
+button {
+    padding: 6px 28px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    background: #e3e3e3;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background: #d5d5d5;
+}
+
+#searchForm button {
+    margin-left: auto;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.wagon {
+    display: grid;
+    grid-auto-columns: 1fr;
+    gap: 4px;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.seat {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 4px;
+    border: 1px solid #bbb;
+    background: #fff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.seat:has(input:disabled) {
+    background: #ddd;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.seat:has(input:checked) {
+    background: #ffe2b8;
+}
+
+.legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #777;
+}
+
+.legend i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #bbb;
+    vertical-align: middle;
+}
+
+.legend .busy {
+    background: #ddd;
+}
+
+.legend .free {
+    background: #fff;
+}
+
+.total {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #999;
+}
+
+.cancel {
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+.empty {
+    color: #999;
+}
