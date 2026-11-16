@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Формы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Формы</h1>
+
+    <form action="#">
+        <h2>Анкета</h2>
+
+        <label>ФИО</label>
+        <input type="text" name="fio" placeholder="Иванов Иван Иванович" required>
+
+        <label>Дата рождения</label>
+        <input type="date" name="birthday" required>
+
+        <label>Пол</label>
+        <div>
+            <input type="radio" name="gender" id="male" value="male">
+            <label for="male" class="inline">Мужской</label>
+            <input type="radio" name="gender" id="female" value="female">
+            <label for="female" class="inline">Женский</label>
+        </div>
+
+        <label>Номер паспорта</label>
+        <input type="text" name="passport">
+
+        <label>Адрес</label>
+        <input type="text" name="address">
+
+        <label>Телефон</label>
+        <input type="tel" name="phone" placeholder="+380">
+
+        <label>Email</label>
+        <input type="email" name="email">
+
+        <label>Семейное положение</label>
+        <select name="status">
+            <option>Не женат / не замужем</option>
+            <option>Женат / замужем</option>
+            <option>В разводе</option>
+            <option>Другое</option>
+        </select>
+
+        <label>Профессия</label>
+        <input type="text" name="job">
+
+        <label>Вы на пенсии?</label>
+        <div>
+            <input type="radio" name="retiree" id="retYes" value="yes">
+            <label for="retYes" class="inline">Да</label>
+            <input type="radio" name="retiree" id="retNo" value="no">
+            <label for="retNo" class="inline">Нет</label>
+        </div>
+
+        <label>Тариф</label>
+        <div>
+            <input type="radio" name="plan" id="planA" value="A">
+            <label for="planA" class="inline">План A — от 25$ в неделю</label>
+        </div>
+        <div>
+            <input type="radio" name="plan" id="planB" value="B">
+            <label for="planB" class="inline">План B — от 21$ в неделю</label>
+        </div>
+
+        <label>Способ оплаты</label>
+        <select name="payment">
+            <option>Раз в год</option>
+            <option>Раз в полгода</option>
+            <option>Каждый месяц</option>
+        </select>
+
+        <div>
+            <input type="checkbox" id="agree" required>
+            <label for="agree" class="inline">Согласен с условиями</label>
+        </div>
+
+        <button type="submit">Отправить</button>
+    </form>
+
+    <form action="#">
+        <h2>Регистрация</h2>
+
+        <label>Логин</label>
+        <input type="text" name="login" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Пароль</label>
+        <input type="password" name="password" minlength="6" required>
+
+        <label>Повторите пароль</label>
+        <input type="password" name="password2" minlength="6" required>
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <form action="#">
+        <h2>Вход</h2>
+
+        <label>Логин или email</label>
+        <input type="text" name="login" required>
+
+        <label>Пароль</label>
+        <input type="password" name="password" required>
+
+        <div>
+            <input type="checkbox" id="remember">
+            <label for="remember" class="inline">Запомнить меня</label>
+        </div>
+
+        <button type="submit">Войти</button>
+    </form>
+
+    <form action="#">
+        <h2>Обратная связь</h2>
+
+        <label>Имя</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Тема</label>
+        <select name="topic">
+            <option>Вопрос</option>
+            <option>Предложение</option>
+            <option>Жалоба</option>
+        </select>
+
+        <label>Сообщение</label>
+        <textarea name="message" rows="4" required></textarea>
+
+        <button type="submit">Отправить</button>
+    </form>
+
+    <form action="#">
+        <h2>Заказ пиццы</h2>
+
+        <label>Пицца</label>
+        <select name="pizza">
+            <option>Маргарита</option>
+            <option>Пепперони</option>
+            <option>Четыре сыра</option>
+            <option>Гавайская</option>
+        </select>
+
+        <label>Размер</label>
+        <div>
+            <input type="radio" name="size" id="s30" value="30" checked>
+            <label for="s30" class="inline">30 см</label>
+            <input type="radio" name="size" id="s40" value="40">
+            <label for="s40" class="inline">40 см</label>
+        </div>
+
+        <label>Добавки</label>
+        <div>
+            <input type="checkbox" id="cheese">
+            <label for="cheese" class="inline">Сыр</label>
+            <input type="checkbox" id="mushrooms">
+            <label for="mushrooms" class="inline">Грибы</label>
+            <input type="checkbox" id="olives">
+            <label for="olives" class="inline">Оливки</label>
+        </div>
+
+        <label>Количество</label>
+        <input type="number" name="count" value="1" min="1" max="10">
+
+        <label>Адрес доставки</label>
+        <input type="text" name="address" required>
+
+        <label>Время доставки</label>
+        <input type="time" name="time">
+
+        <button type="submit">Заказать</button>
+    </form>
+
+    <form action="#">
+        <h2>Запись к врачу</h2>
+
+        <label>ФИО</label>
+        <input type="text" name="fio" required>
+
+        <label>Врач</label>
+        <select name="doctor">
+            <option>Терапевт</option>
+            <option>Стоматолог</option>
+            <option>Окулист</option>
+            <option>Хирург</option>
+        </select>
+
+        <label>Дата</label>
+        <input type="date" name="date" required>
+
+        <label>Телефон</label>
+        <input type="tel" name="phone" required>
+
+        <label>Жалобы</label>
+        <textarea name="complaints" rows="3"></textarea>
+
+        <button type="submit">Записаться</button>
+    </form>
+</body>
+
+</html>
