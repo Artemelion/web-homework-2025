@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Результат теста</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="result-page">
+    <main class="quiz">
+        <h1 id="title">Результат</h1>
+        <div class="circle" id="percent"></div>
+        <p id="details"></p>
+        <button type="button" id="closeButton">Закрыть окно</button>
+    </main>
+
+    <script>
+        // берём результат из localStorage
+        const result = JSON.parse(localStorage.getItem("jsQuiz.lastResult") || "null");
+
+        if (result) {
+            document.querySelector("#title").textContent = `Поздравляем, ${result.name}!`;
+            document.querySelector("#percent").textContent = result.percent + "%";
+            document.querySelector("#details").textContent =
+                `Тест сдан на ${result.score} из ${result.total} баллов. ${result.date}`;
+        } else {
+            document.querySelector("#details").textContent = "Результатов пока нет — сначала пройдите тест.";
+        }
+
+        document.querySelector("#closeButton").addEventListener("click", function () {
+            if (window.opener) window.opener.focus();
+            window.close();
+        });
+    </script>
+</body>
+
+</html>

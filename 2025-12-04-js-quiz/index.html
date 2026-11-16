@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="quiz">
+        <h1>Тест по JavaScript</h1>
+
+        <form id="startScreen" class="screen">
+            <label for="userName">Как вас зовут?</label>
+            <input type="text" id="userName" required maxlength="30" placeholder="Имя" autocomplete="off">
+            <button type="submit">Начать тест</button>
+            <p class="note">12 вопросов, на каждый — 10 секунд. Можно выбрать несколько вариантов.</p>
+        </form>
+
+        <form id="questionScreen" class="screen" hidden>
+            <h2 id="questionTitle"></h2>
+            <fieldset>
+                <legend id="questionText"></legend>
+                <div id="options"></div>
+            </fieldset>
+            <button type="submit">Ответить</button>
+            <p class="timer">Осталось: <b id="timer"></b> секунд</p>
+            <div class="progress"><div id="progressBar"></div></div>
+        </form>
+
+        <section id="finishScreen" class="screen" hidden>
+            <h2>Тест завершён!</h2>
+            <p id="finishText"></p>
+            <button id="openResult" type="button">Открыть результат в отдельном окне</button>
+            <button id="restart" type="button" class="secondary">Пройти ещё раз</button>
+        </section>
+
+        <section id="historyBlock" hidden>
+            <h3>Прошлые результаты</h3>
+            <ol id="historyList"></ol>
+        </section>
+    </main>
+
+    <script src="questions.js"></script>
+    <script src="quiz.js"></script>
+</body>
+
+</html>
