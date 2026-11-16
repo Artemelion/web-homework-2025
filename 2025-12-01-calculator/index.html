@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event. Калькулятор</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e9edf2;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .calc {
+            width: 300px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+        }
+
+        .display {
+            height: 120px;
+            padding: 0 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            background: red;
+            overflow: hidden;
+        }
+
+        .display .history {
+            min-height: 20px;
+            color: #ffd2d2;
+            font-size: 15px;
+        }
+
+        .display .value {
+            color: #bdbdbd;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 22px;
+        }
+
+        .keys button {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 50%;
+            background: #ececee;
+            color: #555;
+            font-size: 26px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .15s, transform .1s;
+        }
+
+        .keys button:hover {
+            background: #dcdce0;
+        }
+
+        .keys button:active {
+            transform: scale(.92);
+        }
+
+        .keys .equals {
+            background: red;
+            color: #fff;
+        }
+
+        .keys .equals:hover {
+            background: #d60000;
+        }
+
+        .hint {
+            margin: -10px 22px 16px;
+            color: #999;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calc">
+        <div class="display">
+            <div class="history" id="history"></div>
+            <div class="value" id="display">0</div>
+        </div>
+
+        <div class="keys" id="keys">
+            <button data-digit="7">7</button>
+            <button data-digit="8">8</button>
+            <button data-digit="9">9</button>
+            <button data-op="+">+</button>
+            <button data-digit="4">4</button>
+            <button data-digit="5">5</button>
+            <button data-digit="6">6</button>
+            <button data-op="-">-</button>
+            <button data-digit="1">1</button>
+            <button data-digit="2">2</button>
+            <button data-digit="3">3</button>
+            <button data-op="*">*</button>
+            <button data-digit="0">0</button>
+            <button data-dot>.</button>
+            <button data-op="/">/</button>
+            <button class="equals" data-equals>=</button>
+        </div>
+        <p class="hint">Можно с клавиатуры. Esc — сброс, Backspace — стереть</p>
+    </div>
+
+    <script>
+        const display = document.querySelector("#display");
+        const history = document.querySelector("#history");
+
+        // текущее число, первое число и знак
+        let current = "0";
+        let previous = null;
+        let operator = null;
+        let startNew = false;
+
+        function render() {
+            display.textContent = current;
+            history.textContent = previous !== null ? previous + " " + operator : "";
+        }
+
+        function inputDigit(digit) {
+            if (startNew || current === "0") {
+                current = digit;
+                startNew = false;
+            } else if (current.length < 12) {
+                current += digit;
+            }
+        }
+
+        function inputDot() {
+            if (startNew) {
+                current = "0.";
+                startNew = false;
+            } else if (!current.includes(".")) {
+                current += ".";
+            }
+        }
+
+        // сама операция
+        function calculate(a, b, op) {
+            switch (op) {
+                case "+": return a + b;
+                case "-": return a - b;
+                case "*": return a * b;
+                case "/": return b === 0 ? NaN : a / b;
+            }
+        }
+
+        function format(number) {
+            if (!isFinite(number)) return "Ошибка";
+            return String(parseFloat(number.toPrecision(10)));
+        }
+
+        function chooseOperator(op) {
+            if (current === "Ошибка") return;
+            if (operator && !startNew) equals();
+            previous = current;
+            operator = op;
+            startNew = true;
+        }
+
+        function equals() {
+            if (operator === null || previous === null) return;
+            current = format(calculate(parseFloat(previous), parseFloat(current), operator));
+            previous = null;
+            operator = null;
+            startNew = true;
+        }
+
+        function clearAll() {
+            current = "0";
+            previous = null;
+            operator = null;
+            startNew = false;
+        }
+
+        // клики по кнопкам
+        document.querySelector("#keys").addEventListener("click", function (e) {
+            const button = e.target.closest("button");
+            if (!button) return;
+
+            if (current === "Ошибка") clearAll();
+
+            if (button.dataset.digit) inputDigit(button.dataset.digit);
+            else if ("dot" in button.dataset) inputDot();
+            else if (button.dataset.op) chooseOperator(button.dataset.op);
+            else if ("equals" in button.dataset) equals();
+
+            render();
+        });
+
+        // ввод с клавиатуры
+        document.addEventListener("keydown", function (e) {
+            if (current === "Ошибка" && e.key !== "Escape") clearAll();
+
+            if (/^\d$/.test(e.key)) inputDigit(e.key);
+            else if (e.key === "." || e.key === ",") inputDot();
+            else if ("+-*/".includes(e.key)) chooseOperator(e.key);
+            else if (e.key === "Enter" || e.key === "=") { e.preventDefault(); equals(); }
+            else if (e.key === "Escape") clearAll();
+            else if (e.key === "Backspace") current = current.length > 1 ? current.slice(0, -1) : "0";
+            else return;
+
+            render();
+        });
+
+        render();
+    </script>
+</body>
+
+</html>
